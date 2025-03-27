@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    container_name: inventory_db
+    environment:
+      POSTGRES_USER: inventory_user
+      POSTGRES_PASSWORD: inventory_pass
+      POSTGRES_DB: inventory_db
+    volumes:
+      - inventory_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  inventory-service:
+    build: .
+    container_name: inventory_service
+    ports:
+      - '3000:3000'
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: inventory_user
+      DB_PASS: inventory_pass
+      DB_NAME: inventory_db
+      NODE_ENV: development
+    depends_on:
+      - postgres
+    command: sh -c "npm install && npm run migration:run -d src/typeorm.config.ts && npm run dev"
+
+volumes:
+  inventory_data:
