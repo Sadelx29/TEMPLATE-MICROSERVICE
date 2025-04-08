@@ -27,6 +27,7 @@ export async function handleInventoryNotification(body: any) {
     });
   
     await syncRepo.save(syncControl);
+    logger.info(`[SYNC] ${type} - ${syncControl.id} - IN_PROGRESS`); // Log the sync control ID
   
     try {
       let processed = 0;
@@ -39,10 +40,11 @@ export async function handleInventoryNotification(body: any) {
         );
   
         const inventoryList = await source.getInventory();
+        logger.info('traje to lo dato', inventoryList);
   
         for (const item of inventoryList) {
           const existing = await inventoryRepo.findOneBy({
-            materialCode: item.materialCode,
+            materialSku: item.materialCode,
             storeCode: item.storeCode,
           });
   

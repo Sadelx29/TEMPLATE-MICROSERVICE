@@ -12,7 +12,7 @@ export class Inventory {
   id!: number;
 
   @Column({ type: 'varchar' })
-  materialCode!: string;
+  materialSku!: string;
 
   @Column({ type: 'varchar' })
   ean!: string;

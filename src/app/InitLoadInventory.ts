@@ -34,7 +34,7 @@ export async function initLoadInventory(locationCode: string, internalIds: numbe
   
       for (const item of records) {
         const existing = await inventoryRepo.findOneBy({
-          materialCode: item.materialCode,
+          materialSku: item.materialCode,
           storeCode: item.storeCode,
         });
   

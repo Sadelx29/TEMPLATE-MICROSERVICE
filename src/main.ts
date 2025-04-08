@@ -1,12 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import { AppDataSource } from './config/data-source';
-import { initRoutes } from './interfaces/api/routes';
-import * as dotenv from 'dotenv';
-import { logger } from './shared/logger';
+import express from "express";
+import cors from "cors";
+import { AppDataSource } from "./config/data-source";
+import { initRoutes } from "./interfaces/api/routes";
+import * as dotenv from "dotenv";
+import { logger } from "./shared/logger";
 dotenv.config(); // 👈 cargamos variables de entorno
-
-dotenv.config();
 
 const app = express();
 
@@ -25,6 +23,6 @@ AppDataSource.initialize()
     });
   })
   .catch((err) => {
-    logger.error('Error al iniciar conexión TypeORM', err);
-    console.error('Error al iniciar conexión TypeORM', err);
+    logger.error("Error al iniciar conexión TypeORM", err);
+    console.error("Error al iniciar conexión TypeORM", err);
   });
